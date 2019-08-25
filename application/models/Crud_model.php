@@ -104,6 +104,25 @@ class Crud_model extends CI_Model {
         );
     }
 
+    function main_settings($id=1)
+    {
+    	$settings_data = array(
+        	'NAME' => $this->input->post('name'),
+        	'ADDRESS' => $this->input->post('address'),
+        	'PHONE' => $this->input->post('phone'),
+        	'SESSION' => $this->input->post('session'),
+        	'ACC_NAME' => $this->input->post('acc_name'),
+        	'ACC_NUMBER' => $this->input->post('acc_number'),
+        );
+
+        $this->db->where('ID', $id);
+		$this->db->update('settings_tbl', $settings_data);
+
+        return array(
+            'edited' => 'done',
+        );
+    }
+
     // Delete Functionalities
     function del_user($user_id)
     {

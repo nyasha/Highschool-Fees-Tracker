@@ -58,6 +58,13 @@ class Admin extends CI_Controller {
 
 			$this->load->view('admin/users', $page_data);
 		}
+
+		if ($name=='settings') {
+			$page_data['page_title'] = 'General Settings';
+			$page_data['page_s_name'] = 'settings';
+
+			$this->load->view('admin/settings', $page_data);
+		}
 	}
 
 	function action($spec='')
@@ -86,6 +93,14 @@ class Admin extends CI_Controller {
         	} else{
         		$this->session->set_flashdata('user_exist', 'A user with that same email already exist.');
         		redirect(base_url() . 'admin/management/users','refresh');
+        	}
+		}
+
+		if ($spec == 'main_settings') {
+			$main_settings = $this->Crud_model->main_settings(); 
+        	if($main_settings['edited']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/management/settings','refresh');
         	}
 		}
 	}
@@ -136,6 +151,12 @@ class Admin extends CI_Controller {
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/users','refresh');
         	}
+		}
+		if ($action=='update_logo') {
+			move_uploaded_file($_FILES['logo']['tmp_name'], 'uploads/logo.png');
+			
+			$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        	redirect(base_url() . 'admin/management/settings','refresh');
 		}
 	}
 }

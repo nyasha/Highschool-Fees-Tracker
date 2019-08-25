@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="<?php echo base_url() ?>assets/backend/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="<?php echo base_url() ?>uploads/logo.png" alt="School Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CH-Tracker</span>
     </a>
@@ -29,6 +29,25 @@
               </p>
             </a>
           </li>
+
+         <!--  <li class="nav-item has-treeview  <?php //if($page_name=='enrollment') echo 'menu-open'; ?>">
+            <a href="#" class="nav-link <?php if($page_name=='management') echo 'active'; ?>">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Enrollment
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url() ?>admin/management/class" class="nav-link  <?php if($page_s_name=='class') echo 'active'; ?>">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Class</p>
+                </a>
+              </li>
+            </ul>
+          </li> -->
+
           <li class="nav-item">
             <a href="<?php echo base_url() ?>admin/enrollment" class="nav-link <?php if($page_name=='enrollment') echo 'active'; ?>">
               <i class="nav-icon fa fa-users"></i>
@@ -73,6 +92,12 @@
                 <a href="<?php echo base_url() ?>admin/management/users" class="nav-link <?php if($page_s_name=='users') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url() ?>admin/management/settings" class="nav-link  <?php if($page_s_name=='settings') echo 'active'; ?>">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>General Settings</p>
                 </a>
               </li>
               <?php  
