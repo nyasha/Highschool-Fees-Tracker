@@ -71,21 +71,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </thead>
                             <tbody>
                               <?php  
-                              // $count = 1;
-                              // $this->db->order_by('creation_date', 'ASC');
-                              // $courses = $this->db->get('courses_tbl')->result_array();
-                              // foreach ($courses as $row):
+                              $count = 1;
+                              $class = $this->db->get('class_tbl')->result_array();
+                              foreach ($class as $row):
                               ?>
                               <tr>
-                                <td><?php //echo $count++; ?></td>
-                                <td><?php //echo $row['name']; ?></td>
-                                <td><?php //echo $row['duration']; ?></td>
+                                <td><?php echo $count++; ?></td>
+                                <td><?php echo $row['NAME']; ?></td>
+                                <td><?php echo number_format($row['FEES']); ?></td>
                                 <td>
-                                  <a href="<?php //echo base_url() ?>aftrack/options/edit_enroll/<?php //echo $row['id']; ?>" class="btn btn-sm btn-block btn-info btn-flat">Edit</a>
+                                  <a href="<?php echo base_url() ?>admin/options/edit_class/<?php echo $row['ID']; ?>" class="btn btn-sm btn-block btn-info btn-flat">Edit</a>
                                 </td>
                               </tr>
                               <?php  
-                              //endforeach;
+                              endforeach;
                               ?>
                             </tbody>
                           </table>
@@ -96,15 +95,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                              <form role="form" method="POST" action="<?php echo base_url() ?>aftrack/action/new_course" enctype="multipart/form-data">
+                              <form role="form" method="POST" action="<?php echo base_url() ?>admin/action/new_class" enctype="multipart/form-data">
                                 <div class="card-body">
                                   <div class="form-group">
                                     <label>CLASS NAME</label>
-                                      <input autocomplete="off" value="<?php ?>" type="text" name="name" class="form-control">
+                                      <input autocomplete="off" value="<?php ?>" type="text" name="cname" class="form-control">
                                   </div>
                                   <div class="form-group">
                                     <label>TOTAL PAYABLE FEES</label>
-                                      <input autocomplete="off" type="tel" value="<?php  ?>" name="fees" class="form-control money">
+                                      <input autocomplete="off" type="tel" value="<?php  ?>" name="cfees" class="form-control money">
                                   </div>
                                   <div class="form-group">
                                     <button type="submit" class="btn btn-primary">ADD NEW CLASS</button>
@@ -144,8 +143,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script>
     $(function () {
       $("#example1").DataTable();
-
       $('.money').simpleMoneyFormat();
+      <?php if($this->session->flashdata('completed') != ''){ ?>
+        new PNotify({
+            title: 'Notification',
+            text: '<?php echo $this->session->flashdata('completed'); ?>',
+            type: 'success'
+        });
+      <?php } ?>
     });
   </script>
 
