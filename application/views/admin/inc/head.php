@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Aptech Abeokuta Fees Tracker | <?php echo $page_title; ?></title>
+  <title>CHORAS Fees Tracker | <?php echo $page_title; ?></title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/backend/plugins/font-awesome/css/font-awesome.min.css">
