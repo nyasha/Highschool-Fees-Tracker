@@ -37,12 +37,19 @@ class Admin extends CI_Controller {
 
 	function management($name='')
 	{
+		$page_data['page_name'] = 'management';
 		if ($name=='class') {
-			$page_data['page_name'] = 'management';
 			$page_data['page_title'] = 'Manage Classes';
 			$page_data['page_s_name'] = 'class';
 
 			$this->load->view('admin/class', $page_data);
+		}
+
+		if ($name=='term') {
+			$page_data['page_title'] = 'Manage Term';
+			$page_data['page_s_name'] = 'term';
+
+			$this->load->view('admin/term', $page_data);
 		}
 	}
 
@@ -53,6 +60,14 @@ class Admin extends CI_Controller {
         	if($add_class['inserted']=='done'){
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/class','refresh');
+        	}
+		}
+
+		if ($spec=='new_term') {
+			$add_term = $this->Crud_model->add_term(); 
+        	if($add_term['inserted']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/management/term','refresh');
         	}
 		}
 	}
@@ -70,6 +85,15 @@ class Admin extends CI_Controller {
 
 			$this->load->view('admin/edit-class', $page_data);
 		}
+
+		if ($param1=="edit_term") {
+			$page_data['term_id'] = $param2;
+			$page_data['page_name'] = 'management';
+			$page_data['page_title'] = 'Edit Term';
+			$page_data['page_s_name'] = 'term';
+
+			$this->load->view('admin/edit_term', $page_data);
+		}
 	}
 
 	function sub_action($action='', $param2='')
@@ -79,6 +103,13 @@ class Admin extends CI_Controller {
         	if($edit_class['edited']=='done'){
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/class','refresh');
+        	}
+		}
+		if ($action == 'edit_term') {
+			$edit_term = $this->Crud_model->edit_term($param2); 
+        	if($edit_term['edited']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/management/term','refresh');
         	}
 		}
 	}

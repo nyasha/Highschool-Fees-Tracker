@@ -22,7 +22,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="<?php echo base_url() ?>aftrack" class="nav-link <?php if($page_name=='dashboard') echo 'active'; ?>">
+            <a href="<?php echo base_url() ?>admin" class="nav-link <?php if($page_name=='dashboard') echo 'active'; ?>">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 Dashboard
@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url() ?>aftrack/enrollment" class="nav-link <?php if($page_name=='enrollment') echo 'active'; ?>">
+            <a href="<?php echo base_url() ?>admin/enrollment" class="nav-link <?php if($page_name=='enrollment') echo 'active'; ?>">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 Enrollment
@@ -38,7 +38,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url() ?>aftrack/payment" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
+            <a href="<?php echo base_url() ?>admin/payment" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
               <i class="nav-icon fa fa-money"></i>
               <p>
                 Payment
@@ -61,19 +61,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>aftrack/management/courses" class="nav-link  <?php if($page_s_name=='mcourse') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/management/term" class="nav-link  <?php if($page_s_name=='term') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Team</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>aftrack/management/courses" class="nav-link  <?php if($page_s_name=='mcourse') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/management/courses" class="nav-link  <?php if($page_s_name=='mcourse') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Courses</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>aftrack/management/enroll_del" class="nav-link <?php if($page_s_name=='mdeleted') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/management/enroll_del" class="nav-link <?php if($page_s_name=='mdeleted') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Deleted Enrollment</p>
                 </a>
@@ -82,7 +82,7 @@
               //if($this->session->userdata('l_priv') == 'admin'):
               ?>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>aftrack/management/users" class="nav-link <?php if($page_s_name=='musers') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/management/users" class="nav-link <?php if($page_s_name=='musers') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Users</p>
                 </a>
