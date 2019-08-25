@@ -51,6 +51,13 @@ class Admin extends CI_Controller {
 
 			$this->load->view('admin/term', $page_data);
 		}
+
+		if ($name=='users') {
+			$page_data['page_title'] = 'Manage Users';
+			$page_data['page_s_name'] = 'users';
+
+			$this->load->view('admin/users', $page_data);
+		}
 	}
 
 	function action($spec='')
@@ -68,6 +75,17 @@ class Admin extends CI_Controller {
         	if($add_term['inserted']=='done'){
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/term','refresh');
+        	}
+		}
+
+		if ($spec=='new_user') {
+			$add_user = $this->Crud_model->add_user(); 
+        	if($add_user['inserted']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/management/users','refresh');
+        	} else{
+        		$this->session->set_flashdata('user_exist', 'A user with that same email already exist.');
+        		redirect(base_url() . 'admin/management/users','refresh');
         	}
 		}
 	}
@@ -110,6 +128,13 @@ class Admin extends CI_Controller {
         	if($edit_term['edited']=='done'){
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/term','refresh');
+        	}
+		}
+		if ($action == 'del_user') {
+			$del_user = $this->Crud_model->del_user($param2); 
+        	if($del_user['deleted']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/management/users','refresh');
         	}
 		}
 	}

@@ -66,23 +66,11 @@
                   <p>Team</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/management/courses" class="nav-link  <?php if($page_s_name=='mcourse') echo 'active'; ?>">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Courses</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/management/enroll_del" class="nav-link <?php if($page_s_name=='mdeleted') echo 'active'; ?>">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Deleted Enrollment</p>
-                </a>
-              </li>
               <?php
               //if($this->session->userdata('l_priv') == 'admin'):
               ?>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/management/users" class="nav-link <?php if($page_s_name=='musers') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/management/users" class="nav-link <?php if($page_s_name=='users') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Users</p>
                 </a>

@@ -43,6 +43,33 @@ class Crud_model extends CI_Model {
         );
     }
 
+    function add_user()
+    {
+    	$email = $this->input->post("email");
+    	if ($email != ''){
+	        if ($this->check_email($email)) {
+	            return FALSE;
+	            die();
+	        }
+    	}
+
+        $pwd = sha1( $this->config->item('salt').$this->input->post("pwd"));
+        $user_data = array(
+            'NAME' => $this->input->post("name"),
+            'EMAIL' => $email,
+            'PASSWORD' => $pwd,
+            'PRIV' => $this->input->post("priv"),
+        );
+
+        $this->db->insert('users_tbl', $user_data);
+        $user_id = $this->db->insert_id();
+
+        return array(
+            'inserted' => 'done',
+            'user_id' => $user_id
+        );
+    }
+
     // Edit functionalities
     function edit_class($class_id)
     {
@@ -75,5 +102,28 @@ class Crud_model extends CI_Model {
         return array(
             'edited' => 'done',
         );
+    }
+
+    // Delete Functionalities
+    function del_user($user_id)
+    {
+        $this->db->where('ID', $user_id);
+		$this->db->delete('users_tbl');
+
+        return array(
+            'deleted' => 'done',
+        );
+    }
+
+    //check if email exist
+    function check_email($email='')
+    {
+    	$email = $this->db->get_where('users_tbl', array('EMAIL' => $email));
+
+        if ($email->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
