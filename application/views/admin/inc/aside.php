@@ -30,8 +30,8 @@
             </a>
           </li>
 
-         <!--  <li class="nav-item has-treeview  <?php //if($page_name=='enrollment') echo 'menu-open'; ?>">
-            <a href="#" class="nav-link <?php if($page_name=='management') echo 'active'; ?>">
+         <li class="nav-item has-treeview  <?php if($page_name=='enrollment') echo 'menu-open'; ?>">
+            <a href="#" class="nav-link <?php if($page_name=='enrollment') echo 'active'; ?>">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 Enrollment
@@ -39,23 +39,30 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <?php  
+              $class = $this->db->get('class_tbl')->result_array();
+              foreach ($class as $row):
+              ?>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/management/class" class="nav-link  <?php if($page_s_name=='class') echo 'active'; ?>">
+                <a href="<?php echo base_url() ?>admin/enrollment/class/<?php echo $row['ID'] ?>" class="nav-link  <?php if($page_s_name==$row['ID']) echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Class</p>
+                  <p><?php echo $row['NAME']; ?></p>
                 </a>
               </li>
+              <?php  
+              endforeach;
+              ?>
             </ul>
-          </li> -->
+          </li>
 
-          <li class="nav-item">
-            <a href="<?php echo base_url() ?>admin/enrollment" class="nav-link <?php if($page_name=='enrollment') echo 'active'; ?>">
+          <!-- <li class="nav-item">
+            <a href="<?php //echo base_url() ?>admin/enrollment" class="nav-link <?php //if($page_name=='enrollment') echo 'active'; ?>">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 Enrollment
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo base_url() ?>admin/payment" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
               <i class="nav-icon fa fa-money"></i>

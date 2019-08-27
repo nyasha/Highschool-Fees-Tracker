@@ -35,6 +35,24 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/dashboard', $page_data);
 	}
 
+	function enrollment($param1='',$param2='',$param3=''){
+		$page_data['page_name'] = 'enrollment';
+		$page_data['class_id'] = $param2;
+		$page_data['page_title'] = 'Class';
+		$page_data['page_s_name'] = $param2;
+
+		$this->load->view('admin/enrollment', $page_data);
+	}
+
+	function parent(){
+		$page_data['page_name'] = 'parent';
+		$page_data['page_title'] = 'Manage Parents';
+		$page_data['page_s_name'] = '';
+
+		$this->load->view('admin/parent', $page_data);
+
+	}
+
 	function management($name='')
 	{
 		$page_data['page_name'] = 'management';
