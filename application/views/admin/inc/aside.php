@@ -55,14 +55,14 @@
             </ul>
           </li>
 
-          <!-- <li class="nav-item">
-            <a href="<?php //echo base_url() ?>admin/enrollment" class="nav-link <?php //if($page_name=='enrollment') echo 'active'; ?>">
+          <li class="nav-item">
+            <a href="<?php echo base_url() ?>admin/parent" class="nav-link <?php if($page_name=='parent') echo 'active'; ?>">
               <i class="nav-icon fa fa-users"></i>
               <p>
-                Enrollment
+                Parent/Guadians
               </p>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a href="<?php echo base_url() ?>admin/payment" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
               <i class="nav-icon fa fa-money"></i>

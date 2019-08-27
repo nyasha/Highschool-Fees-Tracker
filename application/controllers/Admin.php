@@ -50,7 +50,6 @@ class Admin extends CI_Controller {
 		$page_data['page_s_name'] = '';
 
 		$this->load->view('admin/parent', $page_data);
-
 	}
 
 	function management($name='')
@@ -119,6 +118,18 @@ class Admin extends CI_Controller {
         	if($main_settings['edited']=='done'){
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/management/settings','refresh');
+        	}
+		}
+
+		if ($spec=='add_new_parent') {
+			$add_parent = $this->Crud_model->add_parent(); 
+        	if($add_parent['inserted']=='done'){
+        		move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/parents/'. $add_parent['parent_id'] .'.png');
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/parent','refresh');
+        	} else{
+        		$this->session->set_flashdata('user_exist', 'A user with that same email already exist.');
+        		redirect(base_url() . 'admin/parent','refresh');
         	}
 		}
 	}

@@ -70,6 +70,34 @@ class Crud_model extends CI_Model {
         );
     }
 
+    function add_parent()
+    {
+        $email = $this->input->post("email");
+        if ($email != ''){
+            if ($this->check_email($email)) {
+                return FALSE;
+                die();
+            }
+        }
+
+        $pwd = sha1( $this->config->item('salt').$this->input->post("password"));
+        $parent_data = array(
+            'NAME' => $this->input->post("name"),
+            'PHONE' => $this->input->post("phone"),
+            'ADDRESS' => $this->input->post("address"),
+            'EMAIL' => $email,
+            'PASSWORD' => $pwd,
+        );
+
+        $this->db->insert('parent_tbl', $parent_data);
+        $parent_id = $this->db->insert_id();
+
+        return array(
+            'inserted' => 'done',
+            'parent_id' => $parent_id
+        );
+    }
+
     // Edit functionalities
     function edit_class($class_id)
     {
@@ -137,9 +165,10 @@ class Crud_model extends CI_Model {
     //check if email exist
     function check_email($email='')
     {
-    	$email = $this->db->get_where('users_tbl', array('EMAIL' => $email));
+    	$email1 = $this->db->get_where('users_tbl', array('EMAIL' => $email));
+        $email2 = $this->db->get_where('parent_tbl', array('EMAIL' => $email));
 
-        if ($email->num_rows() > 0) {
+        if ($email1->num_rows() > 0 || $email2->num_rows() > 0) {
             return true;
         } else {
             return false;
