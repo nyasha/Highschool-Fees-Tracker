@@ -98,7 +98,41 @@ class Crud_model extends CI_Model {
         );
     }
 
+    function add_student($class_id)
+    {
+        $student_data = array(
+            'NAME' => $this->input->post("name"),
+            'PARENT' => $this->input->post("parent"),
+            'CLASS' => $class_id,
+            'SESSION' => $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION,
+        );
+
+        $this->db->insert('student', $student_data);
+        $student_id = $this->db->insert_id();
+
+        return array(
+            'inserted' => 'done',
+            'student_id' => $student_id
+        );
+    }
+
     // Edit functionalities
+    function edit_student($student_id)
+    {
+        $student_data = array(
+            'NAME' => $this->input->post("name"),
+            'PARENT' => $this->input->post("parent")
+        );
+
+        $this->db->where('ID', $student_id);
+        $this->db->update('student', $student_data);
+
+        return array(
+            'edited' => 'done',
+            'student_id' => $student_id
+        );
+    }
+
     function edit_class($class_id)
     {
     	$fees = str_replace(',', '', $this->input->post('cfees'));
