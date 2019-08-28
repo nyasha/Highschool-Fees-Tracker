@@ -84,7 +84,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	function action($spec='')
+	function action($spec='', $param2='',$param3='')
 	{
 		if ($spec=='new_class') {
 			$add_class = $this->Crud_model->add_class(); 
@@ -130,6 +130,27 @@ class Admin extends CI_Controller {
         	} else{
         		$this->session->set_flashdata('user_exist', 'A user with that same email already exist.');
         		redirect(base_url() . 'admin/parent','refresh');
+        	}
+		}
+
+		if ($spec=='add_new_student') {
+			$class_id = $param2;
+			$add_student = $this->Crud_model->add_student($class_id); 
+        	if($add_student['inserted']=='done'){
+        		move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/students/'. $add_student['student_id'] .'.png');
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/enrollment/class/'.$class_id,'refresh');
+        	}
+		}
+
+		if ($spec=='edit_student') {
+			$student_id = $param2;
+			$class_id = $param3;
+			$edit_student = $this->Crud_model->edit_student($student_id); 
+        	if($edit_student['edited']=='done'){
+        		move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/students/'. $edit_student['student_id'] .'.png');
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/enrollment/class/'.$class_id,'refresh');
         	}
 		}
 	}
