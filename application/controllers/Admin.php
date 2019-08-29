@@ -52,6 +52,24 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/parent', $page_data);
 	}
 
+	function payment($param1='',$param2='',$param3=''){
+
+		$page_data['page_name'] = 'payment';
+		$page_data['class_id'] = $param2;
+		$page_data['page_title'] = 'Manage Payment';
+		$page_data['page_s_name'] = 'p'.$param2;
+
+		if ($param1=='class') {
+			$this->load->view('admin/payment', $page_data);
+		}
+
+		if ($param1=='single') {
+			$page_data['student_id'] = $param3;
+			$this->load->view('admin/single_payment', $page_data);
+		}
+		
+	}
+
 	function management($name='')
 	{
 		$page_data['page_name'] = 'management';
