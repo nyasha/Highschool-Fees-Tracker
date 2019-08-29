@@ -40,6 +40,7 @@
             </a>
             <ul class="nav nav-treeview">
               <?php  
+              $this->db->where('SESSION', $current_session);
               $class = $this->db->get('class_tbl')->result_array();
               foreach ($class as $row):
               ?>
@@ -63,14 +64,33 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url() ?>admin/payment" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
+
+          <li class="nav-item has-treeview  <?php if($page_name=='payment') echo 'menu-open'; ?>">
+            <a href="#" class="nav-link <?php if($page_name=='payment') echo 'active'; ?>">
               <i class="nav-icon fa fa-money"></i>
               <p>
                 Payment
+                <i class="right fa fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <?php  
+              $this->db->where('SESSION', $current_session);
+              $class = $this->db->get('class_tbl')->result_array();
+              foreach ($class as $row):
+              ?>
+              <li class="nav-item">
+                <a href="<?php echo base_url() ?>admin/payment/class/<?php echo $row['ID'] ?>" class="nav-link  <?php if($page_s_name=='p'.$row['ID']) echo 'active'; ?>">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p><?php echo $row['NAME']; ?></p>
+                </a>
+              </li>
+              <?php  
+              endforeach;
+              ?>
+            </ul>
           </li>
+
           <li class="nav-item has-treeview  <?php if($page_name=='management') echo 'menu-open'; ?>">
             <a href="#" class="nav-link <?php if($page_name=='management') echo 'active'; ?>">
               <i class="nav-icon fa fa-cog"></i>

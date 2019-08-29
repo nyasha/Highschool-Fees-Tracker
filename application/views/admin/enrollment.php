@@ -98,7 +98,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="card-header card-info">
                       <!-- <h3 class="card-title"></h3> -->
                       <div class="card-tools">
-                          
                       </div>
                     </div>
                     <!-- /.card-header -->
