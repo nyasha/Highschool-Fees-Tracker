@@ -72,6 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tbody>
                               <?php  
                               $count = 1;
+                              $this->db->where('SESSION', $current_session);
                               $class = $this->db->get('class_tbl')->result_array();
                               foreach ($class as $row):
                               ?>

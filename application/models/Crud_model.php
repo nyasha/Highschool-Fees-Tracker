@@ -14,6 +14,7 @@ class Crud_model extends CI_Model {
         $class_data = array(
             'NAME' => $this->input->post('cname'),
             'FEES' => $fees,
+            'SESSION' => $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION,
         );
 
         $this->db->insert('class_tbl', $class_data);
@@ -32,6 +33,7 @@ class Crud_model extends CI_Model {
         	'CLASS_ID' => $this->input->post('class'),
             'NAME' => $this->input->post('tname'),
             'FEES' => $fees,
+            'SESSION' => $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION,
         );
 
         $this->db->insert('term_tbl', $term_data);
