@@ -73,6 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tbody>
                               <?php  
                               $count = 1;
+                              $this->db->where('SESSION', $current_session);
                               $term = $this->db->get('term_tbl')->result_array();
                               foreach ($term as $row):
                               ?>
@@ -104,6 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <select class="form-control" name="class">
                                       <option>--- --- ---</option>
                                       <?php  
+                                      $this->db->where('SESSION', $current_session);
                                       $class = $this->db->get('class_tbl')->result_array();
                                       foreach ($class as $row):
                                       ?>
