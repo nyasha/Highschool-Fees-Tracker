@@ -112,6 +112,15 @@ class Crud_model extends CI_Model {
         $this->db->insert('student', $student_data);
         $student_id = $this->db->insert_id();
 
+        // Payment data
+        $payment_data = array(
+            'STUDENT' => $student_id,
+            'TOTAL_AMOUNT' => $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES,
+            'AMOUNT_PENDING' => $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES,
+            'SESSION' => $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION,
+        );
+        $this->db->insert('payment_tbl', $payment_data);
+
         return array(
             'inserted' => 'done',
             'student_id' => $student_id
@@ -209,5 +218,46 @@ class Crud_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+
+    //////////////// PAYMENT ////////////////////////
+    function new_payment($class_id='',$student_id='',$term_id='')
+    {
+        $new_pay = str_replace(',', '', $this->input->post('new_pay'));
+        $session = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION;
+        // payment data
+        $all_payment_data = array(
+            'STUDENT' => $student_id,
+            'AMOUNT_PAID' => $new_pay,
+            'EXPIRE_DATE' => $this->input->post('ex_date'),
+            'SESSION' => $session,
+            'CLASS' => $class_id,
+            'TERM' => $term_id,
+        );
+        $this->db->insert('all_payments_tbl', $all_payment_data);
+        $payment_id = $this->db->insert_id();
+        
+        // payment_table
+        $tamount_paid = $this->db->get_where('payment_tbl', array('STUDENT'=>$student_id,'SESSION'=>$session))->row()->AMOUNT_PAID;
+        $total_amount = $this->db->get_where('payment_tbl', array('STUDENT'=>$student_id,'SESSION'=>$session))->row()->TOTAL_AMOUNT;
+
+        $present_t_pay = $new_pay + $tamount_paid;
+        $amount_pending = $total_amount - $present_t_pay;
+
+        $payment_data = array(
+            'AMOUNT_PAID' => $present_t_pay,
+            'AMOUNT_PENDING' => $amount_pending,
+        );
+        $this->db->where('STUDENT',$student_id);
+        $this->db->where('SESSION',$session);
+        $this->db->update('payment_tbl', $payment_data);
+        
+
+        //return $event_code;
+        return array(
+            'inserted' => 'done',
+            'payment_id' => $payment_id,
+        );
     }
 }

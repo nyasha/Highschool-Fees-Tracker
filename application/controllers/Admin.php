@@ -11,15 +11,15 @@ class Admin extends CI_Controller {
         $this->load->library('upload');
 
         // check all payment and grab those that are due
-  //       $this->db->where('expiry_date <', date('Y-m-d'));
-  //       $this->db->where('expiry_alert', 0);
-  //       $query = $this->db->get("all_payments");
-		// if ($query->num_rows() > 0) {
-		// 	foreach ($query->result() as $row) {
-		// 		$this->session->set_flashdata('enroll_id_due', $row->enroll_id);
-		// 		$this->session->set_flashdata('due_payment', 'Payment Due');
-		// 	}
-		// }
+        $this->db->where('EXPIRE_DATE <', date('Y-m-d'));
+        $this->db->where('ALERT', 0);
+        $query = $this->db->get("all_payments_tbl");
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$this->session->set_flashdata('enroll_id_due', $row->STUDENT);
+				$this->session->set_flashdata('due_payment', 'Payment Due');
+			}
+		}
     }
 
 	public function index() {
@@ -52,7 +52,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/parent', $page_data);
 	}
 
-	function payment($param1='',$param2='',$param3=''){
+	function payment($param1='',$param2='',$param3='',$param4=''){
 
 		$page_data['page_name'] = 'payment';
 		$page_data['class_id'] = $param2;
@@ -66,6 +66,39 @@ class Admin extends CI_Controller {
 		if ($param1=='single') {
 			$page_data['student_id'] = $param3;
 			$this->load->view('admin/single_payment', $page_data);
+		}
+
+		if ($param1=='due_payment') {
+			$page_data['page_s_name'] = 'due_pay';
+			$this->load->view('admin/due_payment', $page_data);
+		}
+
+		if ($param1 == 'mute') {
+			$payment_id = $param2;
+			$student_id = $param3;
+			$class_id = $param4;
+			$data = array(
+				'ALERT' => 1
+			);
+			$this->db->where('ID', $payment_id);
+			$this->db->update('all_payments_tbl', $data);
+
+			$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        	redirect(base_url() . 'admin/payment/single/'.$class_id.'/'.$student_id,'refresh');
+		}
+
+		if ($param1 == 'unmute') {
+			$payment_id = $param2;
+			$student_id = $param3;
+			$class_id = $param4;
+			$data = array(
+				'ALERT' => 0
+			);
+			$this->db->where('ID', $payment_id);
+			$this->db->update('all_payments_tbl', $data);
+
+			$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        	redirect(base_url() . 'admin/payment/single/'.$class_id.'/'.$student_id,'refresh');
 		}
 		
 	}
@@ -225,6 +258,21 @@ class Admin extends CI_Controller {
 			
 			$this->session->set_flashdata('completed', 'Action Completed Successfully');
         	redirect(base_url() . 'admin/management/settings','refresh');
+		}
+	}
+
+	////////////////// PAYMENTS //////////////////
+	function payment_actions($param1='',$param2='',$param3='',$param4='')
+	{
+		if ($param1=='new_pay') {
+			$class_id = $param2;
+			$student_id = $param3;
+			$term_id = $param4;
+			$new_payment = $this->Crud_model->new_payment($class_id,$student_id,$term_id);
+        	if($new_payment['inserted']=='done'){
+        		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        		redirect(base_url() . 'admin/payment/single/'.$class_id.'/'.$student_id,'refresh');
+        	}
 		}
 	}
 }
