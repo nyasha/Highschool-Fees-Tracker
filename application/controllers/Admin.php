@@ -73,6 +73,11 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/due_payment', $page_data);
 		}
 
+		if ($param1=='none_payment') {
+			$page_data['page_s_name'] = 'none_pay';
+			$this->load->view('admin/none_payment', $page_data);
+		}
+
 		if ($param1 == 'mute') {
 			$payment_id = $param2;
 			$student_id = $param3;

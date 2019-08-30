@@ -94,12 +94,12 @@
                   <p>DUE PAYMENTS</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
+              <!-- <li class="nav-item">
+                <a href="<?php //echo base_url() ?>admin/payment/none_payment" class="nav-link <?php //if($page_s_name=='none_pay') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>YET TO START PAYMENT</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
 

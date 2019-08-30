@@ -20,10 +20,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Due Payments</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-12">
+            <h3 class="m-0 text-dark">List of Students That Are Yet To Make Payment</h3>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -51,7 +49,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <th>PARENT</th>
                       <th>NAME</th>
                       <th>CLASS</th>
-                      <th>TERM</th>
                       <th>DUE</th>
                       <th>ACTIONS</th>
                     </tr>
@@ -74,7 +71,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </td>
                       <td><?php echo $this->db->get_where('student',array('ID'=>$row['STUDENT']))->row()->NAME; ?></td>
                       <td><?php echo $this->db->get_where('class_tbl',array('ID'=>$row['CLASS']))->row()->NAME; ?></td>
-                      <td><?php echo $this->db->get_where('term_tbl',array('ID'=>$row['TERM']))->row()->NAME; ?></td>
                       <td><span style="color: red; font-weight: bolder;">
                         <?php
                         echo date("d",strtotime($row['EXPIRE_DATE'])).'/'. date("F",strtotime($row['EXPIRE_DATE'])).'/'. date("Y",strtotime($row['EXPIRE_DATE']))
