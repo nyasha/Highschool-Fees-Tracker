@@ -14,5 +14,15 @@
 <script src="<?php echo base_url() ?>assets/backend/Chart.min.js"></script>
 
 <script>
+  $(function () {
+    
+<?php if($this->session->flashdata('due_payment') != ''){ ?>
+    new PNotify({
+        title: 'Payment Due',
+        text: '<span style="font-weight: bolder;"><a href="<?php echo base_url() ?>admin/payment/due_payment">View student payment history.</a></span>',
+        type: 'error'
+    });
+<?php } ?>
 
+  });
 </script>
