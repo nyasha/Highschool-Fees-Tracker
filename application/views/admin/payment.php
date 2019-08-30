@@ -54,7 +54,7 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                     </div>
                   </div>
                   <!-- /.card-header -->
-                  <div class="card-body mt-3">
+                  <div class="card-body mt-3 table-responsive">
 
                     <table class="table table-bordered table-striped" id="example1">
                       <thead>
@@ -62,6 +62,8 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                           <th>S/N</th>
                           <th>PARENT</th>
                           <th>NAME</th>
+                          <th>AMOUNT PAID</th>
+                          <th>PENDING AMOUNT</th>
                           <th>STATUS</th>
                           <th>ACTIONS</th>
                         </tr>
@@ -73,6 +75,9 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                         $this->db->where('SESSION', $current_session);
                         $student = $this->db->get('student')->result_array();
                         foreach ($student as $row):
+                          $amount_paid = $this->db->get_where('payment_tbl',array('STUDENT'=>$row['ID'], 'SESSION'=>$current_session))->row()->AMOUNT_PAID;
+                          $amount_pending = $this->db->get_where('payment_tbl',array('STUDENT'=>$row['ID'], 'SESSION'=>$current_session))->row()->AMOUNT_PENDING;
+                          $total_amount = $this->db->get_where('payment_tbl',array('STUDENT'=>$row['ID'], 'SESSION'=>$current_session))->row()->TOTAL_AMOUNT;
                         ?>
                         <tr>
                           <td><?php echo $count++; ?></td>
@@ -80,10 +85,12 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                             <?php echo $this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->NAME.' ('.$this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->EMAIL.')'; ?>
                           </td>
                           <td><?php echo $row['NAME']; ?></td>
-                          <td>INCOMPLETE</td>
+                          <td><?php echo '&#8358;'.number_format($amount_paid) ?></td>
+                          <td><?php echo '&#8358;'.number_format($amount_pending) ?></td>
+                          <td><?php if($amount_paid>=$total_amount){echo '<span style="color:green;">COMPLETED</span>';}else{ echo '<span style="color:red;">INCOMPLETE</span>'; } ?></td>
                           <td>
-                            <a href="<?php echo base_url() ?>admin/payment/single/<?php echo $class_id ?>/<?php echo $row['ID'] ?>" class="btn btn-sm btn-info">PAYMENT</a>
-                            <button class="btn btn-sm btn-primary">PROMOTE</button>
+                            <a style="padding: 2px; font-size: 12px;" href="<?php echo base_url() ?>admin/payment/single/<?php echo $class_id ?>/<?php echo $row['ID'] ?>" class="btn btn-sm btn-info">PAYMENT</a>
+                            <button style="padding: 2px; font-size: 12px;" class="btn btn-sm btn-primary">PROMOTE</button>
                           </td>
                         </tr>
                         <?php  
