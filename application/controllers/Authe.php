@@ -22,7 +22,7 @@ class Authe extends CI_Controller {
 		if ($check == 'active_staff') {
 			redirect(base_url() . 'admin','refresh');
 		} elseif ($check == 'active_parent') {
-			//redirect(base_url() . 'parent','refresh');
+			redirect(base_url() . 'allparent','refresh');
 		} else{
 			$this->session->set_flashdata('invalid_cred', 'Invalid Credentials');
 			redirect(base_url(),'refresh');
