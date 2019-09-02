@@ -14,7 +14,7 @@
           <img src="<?php echo base_url() ?>assets/backend/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Logged In Name</a>
+          <a href="#" class="d-block"><?php echo $this->session->userdata('login_name'); ?></a>
         </div>
       </div>
 
@@ -103,6 +103,10 @@
             </ul>
           </li>
 
+          <?php
+            if($this->session->userdata('login_priv') == 'admin'):
+          ?>
+
           <li class="nav-item has-treeview  <?php if($page_name=='management') echo 'menu-open'; ?>">
             <a href="#" class="nav-link <?php if($page_name=='management') echo 'active'; ?>">
               <i class="nav-icon fa fa-cog"></i>
@@ -124,9 +128,7 @@
                   <p>Team</p>
                 </a>
               </li>
-              <?php
-              //if($this->session->userdata('l_priv') == 'admin'):
-              ?>
+              
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>admin/management/users" class="nav-link <?php if($page_s_name=='users') echo 'active'; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -139,11 +141,12 @@
                   <p>General Settings</p>
                 </a>
               </li>
-              <?php  
-              //endif;
-              ?>
+              
             </ul>
           </li>
+          <?php  
+          endif;
+          ?>
           <li class="nav-item">
             <a href="<?php echo base_url() ?>authe/logout" class="nav-link">
               <i class="nav-icon fa fa-power-off"></i>
