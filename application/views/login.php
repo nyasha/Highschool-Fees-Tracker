@@ -31,14 +31,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Login to start your session</p><br> <small></small>(USERNAME: denison)-(PASSWORD: denison)</small>
 
-      <form action="" method="post">
+      <form action="<?php echo base_url() ?>authe/valafclog/" method="post">
         <div class="form-group has-feedback">
-          <input type="text" name="username" autocomplete="off" class="form-control" placeholder="Username">
+          <input type="text" name="email" autocomplete="off" class="form-control" placeholder="EMAIL">
         </div>
         <div class="form-group has-feedback">
-          <input type="password" name="pwd" autocomplete="off" class="form-control" placeholder="Password">
+          <input type="password" name="pwd" autocomplete="off" class="form-control" placeholder="PASSWORD">
         </div>
         <!-- /.col -->
           <div class="">
