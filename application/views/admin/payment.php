@@ -84,15 +84,64 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                           <td>
                             <?php echo $this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->NAME.' ('.$this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->EMAIL.')'; ?>
                           </td>
-                          <td><?php echo $row['NAME']; ?></td>
+                          <td><?php echo $row['NAME'].'/'.$row['ID']; ?></td>
                           <td><?php echo '&#8358;'.number_format($amount_paid) ?></td>
                           <td><?php echo '&#8358;'.number_format($amount_pending) ?></td>
                           <td><?php if($amount_paid>=$total_amount){echo '<span style="color:green;">COMPLETED</span>';}else{ echo '<span style="color:red;">INCOMPLETE</span>'; } ?></td>
                           <td>
+                            <?php  
+                            if($amount_paid!=$total_amount):
+                            ?>
                             <a style="padding: 2px; font-size: 12px;" href="<?php echo base_url() ?>admin/payment/single/<?php echo $class_id ?>/<?php echo $row['ID'] ?>" class="btn btn-sm btn-info">PAYMENT</a>
-                            <button style="padding: 2px; font-size: 12px;" class="btn btn-sm btn-primary">PROMOTE</button>
+                            <?php  
+                            endif;
+                            //if($amount_paid>=$total_amount):
+                            ?>
+                            <button class="btn btn-sm btn-primary" style="padding: 2px; font-size: 12px;" data-toggle="modal" data-target="#promote<?php echo $row['ID']; ?>">PROMOTE</button>
+                            <?php  
+                            //endif;
+                            ?>
                           </td>
                         </tr>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="promote<?php echo $row['ID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">PROMOTE <?php echo $row['NAME'] ?></h5>
+                </div>
+                <form method="POST" action="<?php echo base_url() ?>admin/promote/<?php echo $class_id ?>/<?php echo $row['ID'] ?>" enctype="multipart/form-data">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label>NEW SESSION</label>
+                        <select name="session" onchange="return get_class(this.value)" class="form-control selectboxit">
+                          <option value="">--- ---</option>
+                          <?php for($i = 0; $i < 20; $i++):?>
+                              <option value="<?php echo (2019+$i);?>-<?php echo (2019+$i+1);?>" <?php if($current_session == (2019+$i).'-'.(2019+$i+1)) echo 'selected';?>>
+                                  <?php echo (2019+$i);?>-<?php echo (2019+$i+1);?>
+                              </option>
+                          <?php endfor;?>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                        <label>NEW CLASS</label>
+                        <select name="class" required class="form-control selectboxit" id="class_selection_holder">
+                          <option value="">Select Session First</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">PROMOTE</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+        </div>
+
+
                         <?php  
                         endforeach;
                         ?>
@@ -124,7 +173,28 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
 <script>
 $(function () {
   $("#example1").DataTable();
+
+  <?php if($this->session->flashdata('completed') != ''){ ?>
+    new PNotify({
+        title: 'Notification',
+        text: '<?php echo $this->session->flashdata('completed'); ?>',
+        type: 'success'
+    });
+  <?php } ?>
 })
 </script>
+<!-- Auto Populate revenue heads -->
+<script>
+    function get_class(session) {
+        $.ajax({
+            url: '<?php echo base_url();?>admin/get_class/' + session ,
+            success: function(response)
+            {
+                jQuery('#class_selection_holder').html(response);
+            }
+        });
+    }
+</script>
+<!-- End auto populate -->
 </body>
 </html>
