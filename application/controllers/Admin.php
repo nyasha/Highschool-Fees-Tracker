@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
-	function __construct() {
+	function __construct() { 
 
         parent::__construct();
  		$this->load->database();
@@ -23,10 +23,15 @@ class Admin extends CI_Controller {
     }
 
 	public function index() {
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		$this->dashboard();
 	}
 
 	public function dashboard() {
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
 
 		$page_data['page_name'] = 'dashboard';
 		$page_data['page_title'] = 'Dashboard';
@@ -36,6 +41,9 @@ class Admin extends CI_Controller {
 	}
 
 	function enrollment($param1='',$param2='',$param3=''){
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		$page_data['page_name'] = 'enrollment';
 		$page_data['class_id'] = $param2;
 		$page_data['page_title'] = 'Class';
@@ -45,6 +53,9 @@ class Admin extends CI_Controller {
 	}
 
 	function parent(){
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		$page_data['page_name'] = 'parent';
 		$page_data['page_title'] = 'Manage Parents';
 		$page_data['page_s_name'] = '';
@@ -53,6 +64,8 @@ class Admin extends CI_Controller {
 	}
 
 	function payment($param1='',$param2='',$param3='',$param4=''){
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
 
 		$page_data['page_name'] = 'payment';
 		$page_data['class_id'] = $param2;
@@ -110,6 +123,9 @@ class Admin extends CI_Controller {
 
 	function management($name='')
 	{
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		$page_data['page_name'] = 'management';
 		if ($name=='class') {
 			$page_data['page_title'] = 'Manage Classes';
@@ -142,6 +158,9 @@ class Admin extends CI_Controller {
 
 	function action($spec='', $param2='',$param3='')
 	{
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		if ($spec=='new_class') {
 			$add_class = $this->Crud_model->add_class(); 
         	if($add_class['inserted']=='done'){
@@ -213,8 +232,8 @@ class Admin extends CI_Controller {
 
 	public function options($param1='', $param2='')
 	{
-		// if ($this->session->userdata('l_check') != 'go@yes')
-  //           redirect(base_url(), 'refresh'); 
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
 
 		if ($param1=="edit_class") {
 			$page_data['class_id'] = $param2;
@@ -237,6 +256,9 @@ class Admin extends CI_Controller {
 
 	function sub_action($action='', $param2='')
 	{
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+
 		if ($action == 'edit_class') {
 			$edit_class = $this->Crud_model->edit_class($param2); 
         	if($edit_class['edited']=='done'){
@@ -269,6 +291,9 @@ class Admin extends CI_Controller {
 	////////////////// PAYMENTS //////////////////
 	function payment_actions($param1='',$param2='',$param3='',$param4='')
 	{
+		if ($this->session->userdata('login_check') != 'go@yes')
+            redirect(base_url(), 'refresh'); 
+        
 		if ($param1=='new_pay') {
 			$class_id = $param2;
 			$student_id = $param3;
