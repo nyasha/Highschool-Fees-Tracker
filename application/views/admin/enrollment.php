@@ -45,18 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <label for="exampleInputFile">FULL NAME</label>
                         <input autocomplete="off" required type="text" name="name" placeholder=""class="form-control">
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputFile">STUDENT PASSPORT</label>
-                        <div class="input-group">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="photo">
-                            <label class="custom-file-label" for="">Choose file</label>
-                          </div>
-                          <div class="input-group-append">
-                            <span class="input-group-text" id="">Upload</span>
-                          </div>
-                        </div>
-                      </div>
+                      <!--  -->
                       <hr>
                       <div class="form-group">
                         <label for="">PARENT</label>
@@ -144,25 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <label for="exampleInputFile">FULL NAME</label>
                         <input autocomplete="off" required type="text" value="<?php echo $row['NAME'] ?>" name="name" placeholder=""class="form-control">
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputFile">STUDENT PASSPORT</label>
-                        <div class="row">
-                          <div class="col-md-7">
-                            <div class="input-group">
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="photo">
-                                <label class="custom-file-label" for="">Choose file</label>
-                              </div>
-                              <div class="input-group-append">
-                                <span class="input-group-text" id="">Upload</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-5">
-                            <img src="<?php echo base_url() ?>uploads/students/<?php echo $row['ID'] ?>.png" class="img-fluid">
-                          </div>
-                        </div>
-                      </div>
+                      <!--  -->
                       <hr>
                       <div class="form-group">
                         <label for="">PARENT</label>
