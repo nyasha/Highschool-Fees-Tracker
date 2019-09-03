@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AllParent extends CI_Controller {
 
-	function __construct() {
+	function __construct() { 
 
         parent::__construct();
  		$this->load->database();
@@ -34,10 +34,15 @@ class AllParent extends CI_Controller {
     }
 
 	public function index() {
+		if ($this->session->userdata('login_check') != 'go@parent')
+            redirect(base_url(), 'refresh'); 
+
 		$this->dashboard();
 	}
 
 	public function dashboard() {
+		if ($this->session->userdata('login_check') != 'go@parent')
+            redirect(base_url(), 'refresh'); 
 
 		$page_data['page_name'] = 'dashboard';
 		$page_data['page_title'] = 'Dashboard';
@@ -48,6 +53,9 @@ class AllParent extends CI_Controller {
 
 	function payment($param1='',$param2='',$param3='')
 	{
+		if ($this->session->userdata('login_check') != 'go@parent')
+            redirect(base_url(), 'refresh'); 
+        
 		$page_data['page_name'] = 'payment';
 		$page_data['class_id'] = $param1;
 		$page_data['page_title'] = 'Manage Payment';
