@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $school_name = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->NAME;
 $school_address = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ADDRESS;
 $school_phone = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->PHONE;
+$school_bank = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->BANK;
 $school_accname = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC_NAME;
 $school_accnum = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC_NUMBER;
 ?>
@@ -82,6 +83,11 @@ $school_accnum = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       ADDRESS <span class="float-right"><?php echo $school_address ?></span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      BANK <span class="float-right"><?php echo $school_bank ?></span>
                     </a>
                   </li>
                   <li class="nav-item">

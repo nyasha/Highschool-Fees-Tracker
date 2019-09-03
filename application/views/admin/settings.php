@@ -6,6 +6,7 @@ $name = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->NAME;
 $address = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ADDRESS;
 $phone = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->PHONE;
 $session = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->SESSION;
+$bank = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->BANK;
 $acc_name = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC_NAME;
 $acc_number = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC_NUMBER;
 ?>
@@ -60,6 +61,10 @@ $acc_number = $this->db->get_where('settings_tbl',array('ID'=>1))->row()->ACC_NU
                   <div class="form-group">
                     <label>SCHOOL ADDRESS</label>
                     <input type="text" name="address" value="<?php echo $address ?>" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>BANK</label>
+                    <input type="text" name="bank" value="<?php echo $bank ?>" class="form-control">
                   </div>
                   <div class="form-group">
                     <label>SCHOOL ACCOUNT NAME</label>

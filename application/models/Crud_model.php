@@ -184,6 +184,7 @@ class Crud_model extends CI_Model {
         	'ADDRESS' => $this->input->post('address'),
         	'PHONE' => $this->input->post('phone'),
         	'SESSION' => $this->input->post('session'),
+            'BANK' => $this->input->post('bank'),
         	'ACC_NAME' => $this->input->post('acc_name'),
         	'ACC_NUMBER' => $this->input->post('acc_number'),
         );
