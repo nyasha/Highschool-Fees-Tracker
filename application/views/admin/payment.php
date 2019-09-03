@@ -95,11 +95,11 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                             <a style="padding: 2px; font-size: 12px;" href="<?php echo base_url() ?>admin/payment/single/<?php echo $class_id ?>/<?php echo $row['ID'] ?>" class="btn btn-sm btn-info">PAYMENT</a>
                             <?php  
                             endif;
-                            //if($amount_paid>=$total_amount):
+                            if($amount_paid>=$total_amount):
                             ?>
                             <button class="btn btn-sm btn-primary" style="padding: 2px; font-size: 12px;" data-toggle="modal" data-target="#promote<?php echo $row['ID']; ?>">PROMOTE</button>
                             <?php  
-                            //endif;
+                            endif;
                             ?>
                           </td>
                         </tr>
