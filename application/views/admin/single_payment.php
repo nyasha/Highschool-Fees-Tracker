@@ -45,14 +45,6 @@ $student_name = $this->db->get_where('student',array('ID'=>$student_id))->row()-
           $term_id = $row['ID'];
           $total_fees = $row['FEES'];
 
-          // $amount_paid = $this->db->get_where('all_payments_tbl',
-          //   array(
-          //     'STUDENT'=>$student_id,
-          //     'SESSION'=>$current_session,
-          //     'CLASS'=>$class_id,
-          //     'TERM'=>$term_id,
-          //   ))->row()->AMOUNT_PAID;
-
           $this->db->select('SUM(AMOUNT_PAID) as amt');
           $this->db->where('STUDENT', $student_id);
           $this->db->where('SESSION', $current_session);
