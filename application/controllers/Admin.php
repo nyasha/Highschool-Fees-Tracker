@@ -212,7 +212,7 @@ class Admin extends CI_Controller {
 			$class_id = $param2;
 			$add_student = $this->Crud_model->add_student($class_id); 
         	if($add_student['inserted']=='done'){
-        		move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/students/'. $add_student['student_id'] .'.png');
+        		//move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/students/'. $add_student['student_id'] .'.png');
         		$this->session->set_flashdata('completed', 'Action Completed Successfully');
         		redirect(base_url() . 'admin/enrollment/class/'.$class_id,'refresh');
         	}
@@ -305,4 +305,47 @@ class Admin extends CI_Controller {
         	}
 		}
 	}
+
+	function promote($param1='',$param2='')
+	{
+		$class_id = $param1;
+		$student_id = $param2;
+		$current_session = $this->db->get_where('settings_tbl', array('ID'=>1))->row()->SESSION;
+
+		$new_session = $this->input->post('session');
+		$new_class = $this->input->post('class');
+
+		$parent_id = $this->db->get_where('student',array('ID'=>$student_id))->row()->PARENT;
+		$student_name = $this->db->get_where('student',array('ID'=>$student_id))->row()->NAME;
+
+		$student_new_data = array(
+			'PARENT' => $parent_id,
+			'NAME' => $student_name,
+			'CLASS' => $new_class,
+			'SESSION' => $new_session,
+		);
+		$this->db->insert('student', $student_new_data);
+		$new_id = $this->db->insert_id();
+
+		// Payment data
+        $payment_data = array(
+            'STUDENT' => $new_id,
+            'TOTAL_AMOUNT' => $this->db->get_where('class_tbl',array('ID'=>$new_class))->row()->FEES,
+            'AMOUNT_PENDING' => $this->db->get_where('class_tbl',array('ID'=>$new_class))->row()->FEES,
+            'SESSION' => $new_session,
+        );
+        $this->db->insert('payment_tbl', $payment_data);
+
+		$this->session->set_flashdata('completed', 'Action Completed Successfully');
+        redirect(base_url() . 'admin/payment/class/'.$class_id,'refresh');
+
+	}
+
+	function get_class($session) 
+    {
+        $classes = $this->db->get_where('class_tbl' , array('SESSION'=>$session))->result_array();
+        foreach ($classes as $row) {
+            echo '<option value="' . $row['ID'] . '">' . $row['NAME'] . '</option>';
+        }
+    }
 }
