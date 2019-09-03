@@ -5,6 +5,14 @@ class Authe extends CI_Controller {
 
 	function index()
 	{
+        if ($this->session->userdata('login_check') == 'go@parent')
+            redirect(base_url() . 'allparent','refresh');
+
+
+        if ($this->session->userdata('login_check') == 'go@yes')
+            redirect(base_url() . 'admin','refresh');
+        
+
 		$this->login();
 	}
 
