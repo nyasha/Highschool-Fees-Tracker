@@ -122,6 +122,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- ./col -->
         </div>
+        <div class="row">
+          <div class="col-12">
+            <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -137,6 +142,75 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- jQuery -->
 <?php include 'inc/rscript.php'; ?>
+
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [
+        <?php 
+        $total = array();
+        $t = 0; 
+        $this->db->distinct();
+        $this->db->select();
+        $this->db->group_by("SESSION");
+        $p = $this->db->get('all_payments_tbl')->result_array();
+        foreach($p as $row):
+
+          $this->db->select('SUM(AMOUNT_PAID) as amt');
+          $this->db->where('SESSION', $row['SESSION']);
+          $q=$this->db->get('all_payments_tbl');
+          $r=$q->row();
+          array_push($total, $r->amt);
+
+        ?>
+        '<?php echo $row['SESSION'] ?>',
+      <?php endforeach; ?>
+        ],
+        datasets: [{
+            label: 'Payments Per Session',
+
+            data: [
+            <?php
+              foreach($total as $t):
+            ?>
+              '<?php echo $t ?>',
+            <?php
+              endforeach;
+            ?>
+            ,],
+
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
 
 </body>
 </html>
