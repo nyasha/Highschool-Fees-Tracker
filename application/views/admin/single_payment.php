@@ -97,20 +97,20 @@ $student_name = $this->db->get_where('student',array('ID'=>$student_id))->row()-
                           $this->db->where('TERM', $row['ID']);
                           $this->db->order_by('ID', 'DESC');
                           $payments = $this->db->get('all_payments_tbl')->result_array();
-                          foreach ($payments as $row):
+                          foreach ($payments as $pay):
                         ?>
                         <tr>
                           <td><?php echo $count++; ?></td>
-                          <td>&#8358; <?php echo number_format($row['AMOUNT_PAID']) ?></td>
-                          <td><?php echo date("d",strtotime($row['CREATION_DATE'])).'/'. date("F",strtotime($row['CREATION_DATE'])).'/'. date("Y",strtotime($row['CREATION_DATE'])) ?></td>
-                          <td><?php echo date("d",strtotime($row['EXPIRE_DATE'])).'/'. date("F",strtotime($row['EXPIRE_DATE'])).'/'. date("Y",strtotime($row['EXPIRE_DATE'])) ?></td>
+                          <td>&#8358; <?php echo number_format($pay['AMOUNT_PAID']) ?></td>
+                          <td><?php echo date("d",strtotime($pay['CREATION_DATE'])).'/'. date("F",strtotime($pay['CREATION_DATE'])).'/'. date("Y",strtotime($pay['CREATION_DATE'])) ?></td>
+                          <td><?php echo date("d",strtotime($pay['EXPIRE_DATE'])).'/'. date("F",strtotime($pay['EXPIRE_DATE'])).'/'. date("Y",strtotime($pay['EXPIRE_DATE'])) ?></td>
                           <td>
                             <a href="<?php echo base_url() ?>admin/payment/<?php 
-                            if($row['ALERT'] == 0){ 
+                            if($pay['ALERT'] == 0){ 
                               echo 'mute'; 
                             }else{ 
                               echo 'unmute';
-                            } ?>/<?php echo $row['ID'].'/'.$student_id.'/'.$row['CLASS'] ?>" class="btn <?php if($row['ALERT'] == 0){ echo 'btn-warning'; }else{ echo 'btn-info';} ?> btn-sm"><?php if($row['ALERT'] == 0){ echo 'Mute'; }else{ echo 'Unmute';} ?></a>
+                            } ?>/<?php echo $pay['ID'].'/'.$student_id.'/'.$pay['CLASS'] ?>" class="btn <?php if($pay['ALERT'] == 0){ echo 'btn-warning'; }else{ echo 'btn-info';} ?> btn-sm"><?php if($pay['ALERT'] == 0){ echo 'Mute'; }else{ echo 'Unmute';} ?></a>
                           </td>
                         </tr>
                         <?php  

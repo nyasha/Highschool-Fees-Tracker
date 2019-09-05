@@ -62,6 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select class="form-control" name="class">
                                   <option>--- --- ---</option>
                                   <?php  
+                                  $this->db->where('SESSION', $current_session);
                                   $class = $this->db->get('class_tbl')->result_array();
                                   foreach ($class as $row):
                                   ?>

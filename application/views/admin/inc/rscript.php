@@ -1,8 +1,9 @@
 <!-- jQuery -->
-<script src="<?php echo base_url() ?>assets/backend/plugins/jquery/jquery.min.js"></script>
+<!-- <script src="<?php //echo base_url() ?>assets/backend/plugins/jquery/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url() ?>assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
+<!-- Select2 --> 
 <script src="<?php echo base_url() ?>assets/backend/plugins/select2/select2.full.min.js"></script>
 <script src="<?php echo base_url() ?>assets/backend/pnotify/pnotify.custom.min.js"></script>
 <script src="<?php echo base_url() ?>assets/backend/money-js/simple.money.format.js"></script>

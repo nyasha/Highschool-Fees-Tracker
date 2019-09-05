@@ -84,7 +84,7 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                           <td>
                             <?php echo $this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->NAME.' ('.$this->db->get_where('parent_tbl',array('ID'=>$row['PARENT']))->row()->EMAIL.')'; ?>
                           </td>
-                          <td><?php echo $row['NAME'].'/'.$row['ID']; ?></td>
+                          <td><?php echo $row['NAME']; ?></td>
                           <td><?php echo '&#8358;'.number_format($amount_paid) ?></td>
                           <td><?php echo '&#8358;'.number_format($amount_pending) ?></td>
                           <td><?php if($amount_paid>=$total_amount){echo '<span style="color:green;">COMPLETED</span>';}else{ echo '<span style="color:red;">INCOMPLETE</span>'; } ?></td>
@@ -127,14 +127,14 @@ $fees = $this->db->get_where('class_tbl',array('ID'=>$class_id))->row()->FEES;
                       </div>
                       <div class="form-group">
                         <label>NEW CLASS</label>
-                        <select name="class" required class="form-control selectboxit" id="class_selection_holder">
+                        <select name="class" required class="form-control" id="class_holder">
                           <option value="">Select Session First</option>
-                          </select>
+                        </select>
                       </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">PROMOTE</button>
+                        <button type="submit" class="btn btn-primary" id="xx">PROMOTE</button>
                     </div>
                 </form>
               </div>
@@ -182,16 +182,17 @@ $(function () {
     });
   <?php } ?>
 })
-</script>
+</script> 
 <!-- Auto Populate revenue heads -->
 <script>
+
     function get_class(session) {
         $.ajax({
             url: '<?php echo base_url();?>admin/get_class/' + session ,
             success: function(response)
             {
-                jQuery('#class_selection_holder').html(response);
-            }
+              $('div select#class_holder').html(response);
+            },
         });
     }
 </script>
